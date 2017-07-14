@@ -39,5 +39,28 @@
 			<li>Robert will follow link to add products 1 by 1</li>
 			<li>Robert will confirm and post</li>
 		</ol>
+		<h2>conceptual model</h2>
+		<h3>entities and attributes</h3>
+		<p><strong>seller</strong></p>
+		<ul>
+			<li>seller(primary key)</li>
+			<li>sellerLocation</li>
+			<li>sellerhistory</li>
+			<li>sellerreviews</li>
+			<li>sellerid(primary key)</li>
+		</ul>
+
+		<p><strong>item</strong></p>
+		<ul>
+			<li>itemName</li>
+			<li>itemPrice</li>
+			<li>itemDetails</li>
+			<li>itemQuantity</li
+		</ul>
+
+		<h3>relations</h3>
+		<p>one to many</p>
+		<p>One seller has many buyers</p>
+
 	</body>
 </html>
