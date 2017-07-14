@@ -31,5 +31,13 @@
 
 		<h2>Use Case</h2>
 		<p>Robert was reffered to etsy.com by his family and has read thru the instructions on how to upload his items to sell. Robert is leaving for vacation in 1 hour and would like to have his products up befor he leaves.</p>
+
+		<h2>interaction flow</h2>
+		<ol>
+			<li>Robert will sign up at the log in page</li>
+			<li>Robert will follow link to set up sellar profile</li>
+			<li>Robert will follow link to add products 1 by 1</li>
+			<li>Robert will confirm and post</li>
+		</ol>
 	</body>
 </html>
