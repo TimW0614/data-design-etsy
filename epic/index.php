@@ -26,11 +26,15 @@
 		<p>Robert has a goal of selling hand crafted art to a variety of people</p>
 
 		<h3>Story</h3>
-		<p>Robert,has had a hobby of making art from scratch and miscelanious things. Roberts family has encouraged him to sell his products to try and turn a profit.
-			Robert is looking for a web platform to sell his handcrafted art. Robert has little experience using the web and is looking for something easy to use with clear instructions on posting his work.</p>
+		<p>Robert,has had a hobby of making art from scratch and miscelanious things.
+			Roberts family has encouraged him to sell his products to try and turn a profit.
+			Robert is looking for a web platform to sell his handcrafted art.
+			Robert has little experience using the web and is looking for something easy to use with clear instructions
+			on posting his work.</p>
 
 		<h2>Use Case</h2>
-		<p>Robert was reffered to etsy.com by his family and has read thru the instructions on how to upload his items to sell. Robert is leaving for vacation in 1 hour and would like to have his products up befor he leaves.</p>
+		<p>Robert was reffered to etsy.com by his family and has read thru the instructions on how to upload his items to sell.
+			Robert is leaving for vacation in 1 hour and would like to have his products up befor he leaves.</p>
 
 		<h2>interaction flow</h2>
 		<ol>
