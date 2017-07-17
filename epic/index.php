@@ -60,6 +60,7 @@
 		<p><strong>item</strong></p>
 		<ul>
 			<li>itemName(primary key)</li>
+			<li>itemId(forein key</li>
 			<li>itemPrice</li>
 			<li>itemDetails</li>
 			<li>itemQuantity</li
