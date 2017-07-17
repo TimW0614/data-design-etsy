@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<title>Data Design Etsy Project</title>
-					<meta charset="utf8"/>
+		<meta charset="utf8"/>
 	</head>
 	<body>,
 		<h1> Persona, Use Case, Interaction Flow, and Conceptual Model </h1>
@@ -38,33 +38,36 @@
 
 		<h2>interaction flow</h2>
 		<ol>
-			<li>Robert will sign up at the log in page</li>
-			<li>Robert will follow link to set up sellar profile</li>
-			<li>Robert will follow link to add products 1 by 1</li>
-			<li>Robert will confirm and post</li>
+			<li>Sellar will click link for "sell on etsy"</li>
+			<li>Sellar will be rerouted to "open your etsy shop"</li>
+			<li>Sellar will follow link to set up sellar profile</li>
+			<li>Sellar will follow link to add products 1 by 1</li>
+			<li>Sellar will include an item details adn overview</li>
+			<li>Sellar will confirm and post</li>
 		</ol>
 		<h2>conceptual model</h2>
 		<h3>entities and attributes</h3>
 		<p><strong>seller</strong></p>
 		<ul>
-			<li>seller(primary key)</li>
+			<li>sellerId(primary key)</li>
 			<li>sellerLocation</li>
-			<li>sellerhistory</li>
-			<li>sellerreviews</li>
-			<li>sellerid(primary key)</li>
+			<li>sellerEmail</li>
+			<li>sellerPhone</li>
+			<li>sellerHash</li>
+			<li>sellerSalt</li>
 		</ul>
 
 		<p><strong>item</strong></p>
 		<ul>
-			<li>itemName</li>
+			<li>itemName(primary key)</li>
 			<li>itemPrice</li>
 			<li>itemDetails</li>
 			<li>itemQuantity</li
 		</ul>
 
 		<h3>relations</h3>
-		<p>one to many</p>
-		<p>One seller has many buyers</p>
+		<p>1 - n</p> <!--one seller has many items -->
+
 
 	</body>
 </html>
