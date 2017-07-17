@@ -59,8 +59,9 @@
 
 		<p><strong>item</strong></p>
 		<ul>
-			<li>itemName(primary key)</li>
-			<li>itemId(forein key</li>
+			<li>itemId(primary key)</li>
+			<li>itemName</li>
+			<li>itemProfileId(foreign key)</li>
 			<li>itemPrice</li>
 			<li>itemDetails</li>
 			<li>itemQuantity</li
