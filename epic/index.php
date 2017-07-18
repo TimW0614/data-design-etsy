@@ -71,6 +71,8 @@
 		<h3>relations</h3>
 		<p>1 - n</p> <!--one seller has many items -->
 
+		<img src"Data Design ERD1.png")><alt ERD</alt>
+
 
 	</body>
 </html>
