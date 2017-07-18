@@ -17,8 +17,20 @@ CREATE TABLE profile (
 		PRIMARY KEY  (profileId)
 
 
-
 );
+
+CREATE TABLE item (
+		itemId INT UNSIGNED AUTO_INCREMENT NOT NULL,
+		itemProfileId INT UNSIGNED NOT NULL,
+		itemName VARCHAR(200) NOT NULL,
+		itemDescription VARCHAR(500) NOT NULL,
+		itemPrice DECIMAL (11,2) NOT NULL,
+		INDEX (itemProfileId),
+		FOREIGN KEY (itemProfileId) REFERENCES profile(profileId),
+		PRIMARY KEY (itemId)
+
+
+)
 
 
 
