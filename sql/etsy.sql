@@ -30,7 +30,7 @@ CREATE TABLE item (
 		PRIMARY KEY (itemId)
 
 
-)
+);
 
 
 
