@@ -71,7 +71,7 @@
 		<h3>relations</h3>
 		<p>1 - n</p> <!--one seller has many items -->
 
-		<img src="images/Data Design ERD 1.png")><alt="ERD"</alt>
+		<img src="images/DataDesignERD1.png")><alt="ERD"</alt>
 
 
 	</body>
