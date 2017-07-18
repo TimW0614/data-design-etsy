@@ -50,6 +50,7 @@
 		<p><strong>seller</strong></p>
 		<ul>
 			<li>sellerId(primary key)</li>
+			<li>sellerUsername</li>
 			<li>sellerLocation</li>
 			<li>sellerEmail</li>
 			<li>sellerPhone</li>
