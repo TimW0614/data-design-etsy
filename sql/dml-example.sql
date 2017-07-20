@@ -1,2 +1,2 @@
 INSERT INTO profile(profileUsername,profileEmail,profileHash,profileSalt,profileLocation)
-		VALUES ()
+		VALUES (username,Email,Password,Password,Location)
