@@ -38,4 +38,20 @@ class profile{
 	 * location of user
 	 * @var string $profileLocation
 	 **/
+	private $profileLocation;
+
+	/**
+	 * constructor for this profile
+	 *
+	 * @param int|null $newProfileId of this profile or null if a new profile
+	 * @param string $newProfileEmail string containing user's email
+	 * @param string $newProfileHash string containing password hash
+	 * @param string $newProfileSalt string containing password salt
+	 * @param string $newProfileLocation string containing the location of the profile
+	 * @throws \invalidArgumentException if data types are not valid
+	 * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers, negative floats)
+	 * @throws \TypeError if data types violate type hints
+	 * @throws \Exception if some other exception occurs
+	 * @documentation https://php.net/manual/en/language.oop5.decon.php
+	 **/
 }
