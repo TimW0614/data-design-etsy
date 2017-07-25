@@ -65,5 +65,53 @@ class Item {
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
 	}
-
+	/**
+	 * accessor method for item id
+	 * @return int|null value of item id
+	 **/
+	public function getItemId(): ?int {
+		return($this->itemId);
+	}
+	/**
+	 * mutator method for item id
+	 * @param int|null $newItemId new value of Item id
+	 * @throws \RangeException if $newItemId is not positive
+	 * @throws \TypeError if $newItemId is not an integer
+	 **/
+	public function setItemId(?int $newItemId): void {
+		// if item id is null immediately return it
+		if($newItemId === null) {
+			$this->itemId = null;
+			return;
+		}
+		// verify the item id is positive
+		if($newItemId <= 0) {
+			throw(new \RangeException("item id is not positive"));
+		}
+		//convert and store the item id
+		$this->itemId = $newItemId;
+	}
+	/**
+	 * accessor method for item profile id
+	 *
+	 * @return int value of item profile id
+	 **/
+	public function getItemProfileId() : int {
+		return($this->itemProfileId);
+	}
+	/**
+	 * mutator method for item profile id
+	 *
+	 * @param int $newItemProfileId new value of item profile id
+	 * @throws \RangeException if $newProfileId is not positive
+	 * @throws \TypeError if $newProfileId is not an integer
+	 **/
+	public function setItemProfileId(int $newItemProfileId) : void {
+		// verify the profile id is positive
+		if($newItemProfileId <= 0) {
+			throw(new \RangeException("item profile id is not positive"));
+		}
+		// convert and store the profile id
+		$this->itemProfileId = $newItemProfileId;
+	}
 }
