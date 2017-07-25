@@ -101,6 +101,31 @@ class profile{
 		$this->profileId = $newProfileId;
 	}
 	/**
-	 *
+	 * accessor method for profile username
+	 * @return string value of profile username
 	 **/
+	public function getProfileUsername(): string {
+		return($this->profileUsername);
+	}
+	/**
+	 * mutator method for profile username
+	 *
+	 * @param string $newProfileUsername new value of profile username
+	 * @throws \InvalidArgumentException if $newProfileUsername is empty or insecure
+	 * @throws \RangeException if $newProfileUsername is > 32 characters
+	 * @throws \TypeError if $newProfileUsername is not a string
+	 **/
+	public function setProfileUsername(string $newProfileUsername): void {
+		// verify that the username is secure
+		$newProfileUsername = trim($newProfileUsername);
+		$newProfileUsername = filter_var($newProfileUsername, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newProfileUsername) === true) {
+			throw(new \InvalidArgumentException("profile username is empty or insecure"));
+		}
+		// verify that the username will fit in the database
+		if(strlen($newProfileUsername) > 32) {
+			throw(new \RangeException("profile username is too large"));
+		}
+		// convert and store the username
+		$this->profileUsername = $newProfileUsername;
 }
