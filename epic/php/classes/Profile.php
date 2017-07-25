@@ -1,6 +1,6 @@
 <?php
 namespace Edu\Cnm\DataDesign;
-reqiore_once("autoload.php");
+require_once("autoload.php");
 
 /**
  * <h1>data design etsy</h1>
