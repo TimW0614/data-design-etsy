@@ -128,4 +128,35 @@ class profile{
 		}
 		// convert and store the username
 		$this->profileUsername = $newProfileUsername;
+	}
+	/**
+	 * accessor method for profile email
+	 * @return string value of profile email
+	 **/
+	public function getProfileEmail(): string {
+		return($this->profileEmail);
+	}
+	/**
+	 *  mutator method for profile email
+	 *
+	 * @param string $newProfileEmail new value of profile email
+	 * @throws \InvalidArgumentException if $newProfileEmail is not a string or insecure
+	 * @throws \RangeException if $newProfileEmail is not positive
+	 * @throws \TypeError if $newProfileEmail is not a string
+	 **/
+	public function setProfileEmail(string $newProfileEmail): void {
+		// verify that the profile email is secure
+		$newProfileEmail = trim($newProfileEmail);
+		$newProfileEmail = filter_var($newProfileEmail, FILTER_VALIDATE_EMAIL);
+		$newProfileEmail = filter_var($newProfileEmail, FILTER_SANITIZE_EMAIL);
+		if(empty($newProfileEmail) === true) {
+			throw(new \InvalidArgumentException("profile email is empty, invalid, or insecure"));
+		}
+		// verify that the email will fit in the database
+		if(strlen($newProfileEmail) > 128) {
+			throw(new \RangeException("profile email is too large"));
+		}
+		// store the profile email
+		$this->profileEmail = $newProfileEmail;
+	}
 }
