@@ -1,6 +1,8 @@
 <?php
 namespace Edu\Cnm\DataDesign;
 require_once("autoload.php");
+
+
 /**
  * Small Cross Section of a Contempo Design Product
  *
@@ -113,5 +115,95 @@ class Item {
 		}
 		// convert and store the profile id
 		$this->itemProfileId = $newItemProfileId;
+	}
+	/**
+	 * accessor method for item name
+	 *
+	 * @return string value of item name
+	 **/
+	public function getItemName() : string {
+		return($this->itemName);
+	}
+	/**
+	 * mutator method for item name
+	 * @param string $newItemName new name of item
+	 * @throws \InvalidArgumentException if $newItem name is not a string or insecure
+	 * @throws \RangeException if $newItemName is > 500 characters
+	 * @throws \TypeError if $newItemName is not a string
+	 */
+	public function setItemName(string $newItemName) : void {
+		// verify that the item name is secure
+		$newItemName = trim($newItemName);
+		$newItemName = filter_var($newItemName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newItemName) === true) {
+			throw(new \InvalidArgumentException("item name is empty or insecure"));
+		}
+		// verify that the item name will fit in the database
+		if(strlen($newItemName) > 500) {
+			throw(new \RangeException("item name is too long"));
+		}
+		// store the item name
+		$this->itemName = $newItemName;
+	}
+	/**
+	 * accessor method for item description
+	 *
+	 * @return string value of item description
+	 **/
+	public function getItemDescription() : string {
+		return($this->itemDescription);
+	}
+	/**
+	 * mutator method for item description
+	 *
+	 * @param string $newItemDescription new description of item
+	 * @throws \InvalidArgumentException if $newItemDescription is not a string or insecure
+	 * @throws \RangeException if $newItemDescription is > 200 characters
+	 * @throws \TypeError if $newItemDescription is not a string
+	 **/
+	public function setItemDescription(string $newItemDescription) : void{
+		// verify that the item description is secure
+		$newItemDescription = trim($newItemDescription);
+		$newItemDescription = filter_var($newItemDescription, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES );
+		if(empty($newItemDescription) === true) {
+			throw(new \InvalidArgumentException("item description is empty or insecure"));
+		}
+		// verify that the item description will fit in the database
+		if(strlen($newItemDescription) > 200) {
+			throw(new \RangeException("item description is too long"));
+		}
+		// store the item description
+		$this->itemDescription = $newItemDescription;
+	}
+	/**
+	 * accessor method for item price
+	 *
+	 * @return float value of item Price
+	 */
+	public function getItemPrice() : float {
+		return($this->itemPrice);
+	}
+	/**
+	 * mutator method for item Price
+	 *
+	 * @param float $newItemPrice new cost of item
+	 * @throws \InvalidArgumentException if $newItemPrice is empty insecure
+	 * @throws \RangeException if $newItemPrice > 11 digits
+	 * @throws \TypeError if $newItemPrice is not a float
+	 **/
+	public function setItemPrice(float $newItemPrice) : void {
+		// verify that the item Price is secure
+		$newItemPrice = filter_var($newItemPrice, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_THOUSAND);
+		if(empty($newItemPrice) === true) {
+			throw(new \InvalidArgumentException("item is empty or insecure"));
+		}
+		// verify price is > 0
+		if($newItemPrice <= 0) {
+			throw(new \RangeException("item price is not positive"));
+		}
+		// verify that the item Price will fit in the database (> 11 digits)
+		// check decimal precision???
+		// if ok, set itemPrice
+		$this->itemPrice = $newItemPrice;
 	}
 }
