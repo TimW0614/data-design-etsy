@@ -25,5 +25,11 @@ class Item {
 	 * actual content in text format that describes this Item
 	 * @var string $itemDescription
 	 **/
+	private $itemName;
+	/**
+	 * actual content in text format that describes this Item
+	 * @var string $itemDescription
+	 **/
+	private $itemDescription;
 
 }
