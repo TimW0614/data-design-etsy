@@ -203,5 +203,8 @@ class Item {
 		// check decimal precision???
 		// if ok, set itemPrice
 		$this->itemPrice = $newItemPrice;
+
+
 	}
 }
+?>
