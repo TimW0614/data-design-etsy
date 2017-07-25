@@ -192,5 +192,66 @@ class profile{
 		// convert and store hash
 		$this->profileHash = $newProfileHash;
 	}
-
+	/**
+	 * accessor method for salt
+	 * @return string value of profile password salt
+	 **/
+	public function getProfileSalt(): string {
+		return($this->profileSalt);
+	}
+	/**
+	 * mutator method for salt
+	 *
+	 * @param string $newProfileSalt new value of profile password salt
+	 * @throws \InvalidArgumentException if $newProfileSalt is not secure
+	 * @throws \RangeException if $newProfileSalt is not 64 characters
+	 * @throws \TypeError if $newProfileSalt is not a string
+	 **/
+	public function setProfileSalt(string $newProfileSalt): void {
+		// ensure that the salt is properly formatted
+		$newProfileSalt = trim($newProfileSalt);
+		$newProfileSalt = strtolower($newProfileSalt);
+		if(empty($newProfileSalt) === true) {
+			throw(new \InvalidArgumentException("profile password salt is empty or insecure"));
+		}
+		// ensure that the salt is a string representation of a hexadecimal
+		if(!ctype_xdigit($newProfileSalt)) {
+			throw(new \InvalidArgumentException("profile password salt is empty or insecure"));
+		}
+		// ensure that the salt is exactly 64 characters
+		if(strlen($newProfileSalt) !== 64) {
+			throw(new \InvalidArgumentException("profile password salt must be 64 characters"));
+		}
+		// convert and store salt
+		$this->profileSalt = $newProfileSalt;
+	}
+	/**
+	 * accessor method for profile location
+	 * @return string value of profile location
+	 **/
+	public function getProfileLocation(): string {
+		return($this->profileLocation);
+	}
+	/**
+	 * mutator method for profile location
+	 *
+	 * @param string $newProfileLocation new value of profile location
+	 * @throws \InvalidArgumentException if $newProfileLocation is empty or insecure
+	 * @throws \RangeException if $newProfileLocation is < 50 characters
+	 * @throws \TypeError if $newProfileLocation is not a string
+	 **/
+	public function setProfileLocation(string $newProfileLocation): void {
+		// verify that the location is secure
+		$newProfileLocation = trim($newProfileLocation);
+		$newProfileLocation = filter_var($newProfileLocation, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newProfileLocation) === true) {
+			throw(new \InvalidArgumentException("profile location is empty or insecure"));
+		}
+		// verify that the location will fit in the database
+		if(strlen($newProfileLocation) > 50) {
+			throw(new \RangeException("profile location is too large"));
+		}
+		// convert and store the location
+		$this->profileLocation = $newProfileLocation;
+	}
 }
