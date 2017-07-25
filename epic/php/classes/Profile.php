@@ -159,4 +159,38 @@ class profile{
 		// store the profile email
 		$this->profileEmail = $newProfileEmail;
 	}
+	/**
+	 * accessor method for hash
+	 * @return string value of profile password hash
+	 */
+	public function getProfileHash(): string {
+		return($this->profileHash);
+	}
+	/**
+	 * mutator method for hash
+	 *
+	 * @param string $newProfileHash new value of profile password hash
+	 * @throws \InvalidArgumentException if $newProfileHash is not secure
+	 * @throws \RangeException if $newProfileHash is not 128 characters
+	 * @throws \TypeError if $newProfileHash is not a string
+	 **/
+	public function setProfileHash(string $newProfileHash): void {
+		// ensure that the hash is properly formatted
+		$newProfileHash = trim($newProfileHash);
+		$newProfileHash = strtolower($newProfileHash);
+		if(empty($newProfileHash) === true) {
+			throw(new \InvalidArgumentException("profile password hash is empty or insecure "));
+		}
+		// ensure that the hash is a string representation of a hexadecimal
+		if(!ctype_xdigit($newProfileHash)) {
+			throw(new \InvalidArgumentException("profile password hash is empty or insecure"));
+		}
+		// ensure that the hash is exactly 128 characters
+		if(strlen($newProfileHash) !== 128) {
+			throw(new \InvalidArgumentException("profile password hash must be 128 characters"));
+		}
+		// convert and store hash
+		$this->profileHash = $newProfileHash;
+	}
+
 }
