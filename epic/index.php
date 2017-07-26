@@ -7,7 +7,8 @@
 	<body>,
 		<h1> Persona, Use Case, Interaction Flow, and Conceptual Model </h1>
 		<h2>Persona</h2>
-		<h3>Name:</h3><p>Robert Lester</p>
+		<h3>Name:</h3>
+		<p>Robert Lester</p>
 
 		<h3>age:</h3>
 		<p>63</p>
@@ -33,7 +34,8 @@
 			on posting his work.</p>
 
 		<h2>Use Case</h2>
-		<p>Robert was reffered to etsy.com by his family and has read thru the instructions on how to upload his items to sell.
+		<p>Robert was reffered to etsy.com by his family and has read thru the instructions on how to upload his items to
+			sell.
 			Robert is leaving for vacation in 1 hour and would like to have his products up befor he leaves.</p>
 
 		<h2>interaction flow</h2>

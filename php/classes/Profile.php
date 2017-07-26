@@ -1,4 +1,5 @@
 <?php
+
 namespace Edu\Cnm\DataDesign;
 require_once("autoload.php");
 
@@ -7,8 +8,7 @@ require_once("autoload.php");
  * <p>This is a data design exercise where a etsy user is trying to sell a product</p>
  * @author Timothy Williams <tkotalik@cnm.edu>
  **/
-
-class profile{
+class profile {
 	/**
 	 * primary key for profileId
 	 * @var int $profileId
@@ -61,9 +61,7 @@ class profile{
 			$this->profileHash($newProfileHash);
 			$this->profileSalt($newProfileSalt);
 			$this->profileLocation($newProfileLocation);
-		}
-
-	catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 
@@ -79,6 +77,7 @@ class profile{
 	public function getProfileId(): int {
 		return ($this->profileId);
 	}
+
 	/**
 	 * mutator method for profileId
 	 *
@@ -94,18 +93,20 @@ class profile{
 		}
 		// verify the profile id is positive
 		if($newProfileId <= 0) {
-				throw(new \RangeException("profile id is not positive"));
+			throw(new \RangeException("profile id is not positive"));
 		}
 		// convert and store the profile id
 		$this->profileId = $newProfileId;
 	}
+
 	/**
 	 * accessor method for profile username
 	 * @return string value of profile username
 	 **/
 	public function getProfileUsername(): string {
-		return($this->profileUsername);
+		return ($this->profileUsername);
 	}
+
 	/**
 	 * mutator method for profile username
 	 *
@@ -128,13 +129,15 @@ class profile{
 		// convert and store the username
 		$this->profileUsername = $newProfileUsername;
 	}
+
 	/**
 	 * accessor method for profile email
 	 * @return string value of profile email
 	 **/
 	public function getProfileEmail(): string {
-		return($this->profileEmail);
+		return ($this->profileEmail);
 	}
+
 	/**
 	 *  mutator method for profile email
 	 *
@@ -158,13 +161,15 @@ class profile{
 		// store the profile email
 		$this->profileEmail = $newProfileEmail;
 	}
+
 	/**
 	 * accessor method for hash
 	 * @return string value of profile password hash
 	 */
 	public function getProfileHash(): string {
-		return($this->profileHash);
+		return ($this->profileHash);
 	}
+
 	/**
 	 * mutator method for hash
 	 *
@@ -191,13 +196,15 @@ class profile{
 		// convert and store hash
 		$this->profileHash = $newProfileHash;
 	}
+
 	/**
 	 * accessor method for salt
 	 * @return string value of profile password salt
 	 **/
 	public function getProfileSalt(): string {
-		return($this->profileSalt);
+		return ($this->profileSalt);
 	}
+
 	/**
 	 * mutator method for salt
 	 *
@@ -224,13 +231,15 @@ class profile{
 		// convert and store salt
 		$this->profileSalt = $newProfileSalt;
 	}
+
 	/**
 	 * accessor method for profile location
 	 * @return string value of profile location
 	 **/
 	public function getProfileLocation(): string {
-		return($this->profileLocation);
+		return ($this->profileLocation);
 	}
+
 	/**
 	 * mutator method for profile location
 	 *

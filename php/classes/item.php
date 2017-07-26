@@ -1,4 +1,5 @@
 <?php
+
 namespace Edu\Cnm\DataDesign;
 require_once("autoload.php");
 
@@ -9,7 +10,6 @@ require_once("autoload.php");
  * @author Timothy Williams <tkotalik@cnm.edu>
  * @version 4.0.1
  **/
-
 class Item {
 	/**
 	 * id for this Item; this is the primary key
@@ -36,6 +36,7 @@ class Item {
 	 * @var float $itemPrice
 	 **/
 	private $itemPrice;
+
 	/**
 	 * constructor for this Item
 	 *
@@ -65,13 +66,15 @@ class Item {
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
 	}
+
 	/**
 	 * accessor method for item id
 	 * @return int|null value of item id
 	 **/
 	public function getItemId(): ?int {
-		return($this->itemId);
+		return ($this->itemId);
 	}
+
 	/**
 	 * mutator method for item id
 	 * @param int|null $newItemId new value of Item id
@@ -91,14 +94,16 @@ class Item {
 		//convert and store the item id
 		$this->itemId = $newItemId;
 	}
+
 	/**
 	 * accessor method for item profile id
 	 *
 	 * @return int value of item profile id
 	 **/
-	public function getItemProfileId() : int {
-		return($this->itemProfileId);
+	public function getItemProfileId(): int {
+		return ($this->itemProfileId);
 	}
+
 	/**
 	 * mutator method for item profile id
 	 *
@@ -106,7 +111,7 @@ class Item {
 	 * @throws \RangeException if $newProfileId is not positive
 	 * @throws \TypeError if $newProfileId is not an integer
 	 **/
-	public function setItemProfileId(int $newItemProfileId) : void {
+	public function setItemProfileId(int $newItemProfileId): void {
 		// verify the profile id is positive
 		if($newItemProfileId <= 0) {
 			throw(new \RangeException("item profile id is not positive"));
@@ -114,14 +119,16 @@ class Item {
 		// convert and store the profile id
 		$this->itemProfileId = $newItemProfileId;
 	}
+
 	/**
 	 * accessor method for item name
 	 *
 	 * @return string value of item name
 	 **/
-	public function getItemName() : string {
-		return($this->itemName);
+	public function getItemName(): string {
+		return ($this->itemName);
 	}
+
 	/**
 	 * mutator method for item name
 	 * @param string $newItemName new name of item
@@ -129,7 +136,7 @@ class Item {
 	 * @throws \RangeException if $newItemName is > 500 characters
 	 * @throws \TypeError if $newItemName is not a string
 	 */
-	public function setItemName(string $newItemName) : void {
+	public function setItemName(string $newItemName): void {
 		// verify that the item name is secure
 		$newItemName = trim($newItemName);
 		$newItemName = filter_var($newItemName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -143,14 +150,16 @@ class Item {
 		// store the item name
 		$this->itemName = $newItemName;
 	}
+
 	/**
 	 * accessor method for item description
 	 *
 	 * @return string value of item description
 	 **/
-	public function getItemDescription() : string {
-		return($this->itemDescription);
+	public function getItemDescription(): string {
+		return ($this->itemDescription);
 	}
+
 	/**
 	 * mutator method for item description
 	 *
@@ -159,10 +168,10 @@ class Item {
 	 * @throws \RangeException if $newItemDescription is > 200 characters
 	 * @throws \TypeError if $newItemDescription is not a string
 	 **/
-	public function setItemDescription(string $newItemDescription) : void{
+	public function setItemDescription(string $newItemDescription): void {
 		// verify that the item description is secure
 		$newItemDescription = trim($newItemDescription);
-		$newItemDescription = filter_var($newItemDescription, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES );
+		$newItemDescription = filter_var($newItemDescription, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newItemDescription) === true) {
 			throw(new \InvalidArgumentException("item description is empty or insecure"));
 		}
@@ -173,14 +182,16 @@ class Item {
 		// store the item description
 		$this->itemDescription = $newItemDescription;
 	}
+
 	/**
 	 * accessor method for item price
 	 *
 	 * @return float value of item Price
 	 */
-	public function getItemPrice() : float {
-		return($this->itemPrice);
+	public function getItemPrice(): float {
+		return ($this->itemPrice);
 	}
+
 	/**
 	 * mutator method for item Price
 	 *
@@ -189,7 +200,7 @@ class Item {
 	 * @throws \RangeException if $newItemPrice > 11 digits
 	 * @throws \TypeError if $newItemPrice is not a float
 	 **/
-	public function setItemPrice(float $newItemPrice) : void {
+	public function setItemPrice(float $newItemPrice): void {
 		// verify that the item Price is secure
 		$newItemPrice = filter_var($newItemPrice, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_THOUSAND);
 		if(empty($newItemPrice) === true) {
@@ -204,7 +215,21 @@ class Item {
 		// if ok, set itemPrice
 		$this->itemPrice = $newItemPrice;
 
+	}
 
+	/**
+	 * inserts this item into mySQL
+	 *
+	 * @param \PDO $pdo connection object
+	 * @throws \PDOException when mySQl related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function  insert(\PDO $pdo) : void {
+		// enforce the itemId is null (i.e., don't insert a item that already exist)
+		if($this->itemId !== null) {
+			throw(new \PDOException("not a new item"));
+		}
 	}
 }
+
 ?>
