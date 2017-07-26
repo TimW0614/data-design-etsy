@@ -45,7 +45,7 @@ class Item {
 	 * @param string $newItemDescription string containing actual content data
 	 * @param string $newItemType string containing the type data
 	 * @param string $newItemName string containing the name of the Item
-	 * @param float $newItemCost float containing cost data of the Item
+	 * @param float $newItemPrice float containing cost data of the Item
 	 * @throws \InvalidArgumentException if data types are not valid
 	 * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers, negative floats)
 	 * @throws \TypeError if data types violate type hints
@@ -224,11 +224,47 @@ class Item {
 	 * @throws \PDOException when mySQl related errors occur
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 **/
-	public function  insert(\PDO $pdo) : void {
+	public function insert(\PDO $pdo): void {
 		// enforce the itemId is null (i.e., don't insert a item that already exist)
 		if($this->itemId !== null) {
 			throw(new \PDOException("not a new item"));
 		}
+
+		// create query template
+		$query = "INSERT INTO item(itemProfileId, itemName, 
+					itemDescription, itemPrice) VALUES(:itemProfileId, :itemName, :itemDescription,
+					 :itemPrice)";
+		$statement = $pdo->prepare($query);
+
+		// bind the member variables to the place holders in the template
+		$parameters = ["itemProfileId" => $this->itemProfileId, "itemName" => $this->itemName,
+			"itemDescription" => $this->itemDescription, "itemPrice" => $this->itemPrice];
+		$statement->execute($parameters);
+
+		// update the null itemId with what mySQL just gave us
+		$this->itemId = intval($pdo->lastInsertId());
+	}
+
+	/**
+	 * deletes this item from mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function  delete(\PDO $pdo) : void {
+		// enforce the itemId is not null (i.e., dont delete a item that hasnt been inserted)
+		if($this->itemId === null) {
+			throw(new \PDOException("unable to delete a item that does not exist"));
+		}
+
+		// create query template
+		$query = "DELETE  FROM item WHERE itemID = : itemId";
+		$statement = $pdo->prepare($query);
+
+		// bind the memberd variables to the place holder in the template
+		$parameters = ["itemId" => $this->itemId];
+		$statement->execute($parameters);
 	}
 }
 
