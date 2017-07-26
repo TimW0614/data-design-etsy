@@ -57,10 +57,10 @@ class profile {
 	public function __construct(?int $newProfileId, string $newProfileUsername, string $newProfileEmail, string $newProfileHash, string $newProfileSalt, string $newProfileLocation) {
 		try {
 			$this->setProfileId($newProfileId);
-			$this->profieEmail($newProfileEmail);
-			$this->profileHash($newProfileHash);
-			$this->profileSalt($newProfileSalt);
-			$this->profileLocation($newProfileLocation);
+			$this->setprofieEmail($newProfileEmail);
+			$this->setProfileEmail($newProfileHash);
+			$this-setprofileSalt($newProfileSalt);
+			$this->setprofileLocation($newProfileLocation);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
@@ -276,17 +276,18 @@ class profile {
 			throw(new \PDOException("not a new profile"));
 
 		}
-	}
-	// create query template
+
+		// create query template
 		$query = "INSERT INTO profie(profileId, profileUsername, profileEmail, profileHash, profileSalt, profileLocation)
 	 			VALUES(:profileId, :profileUsername, :profileEmail, :profileHash, :profileSalt, :profileLocation)";
-		$statement = $pdo->prepare($query)'
+		$statement = $pdo->prepare($query);
 
 		// bind the member variables to the place holders in the template
 		$parameters = ["profileId" => $this->profileId, "profileUsername" => $this->profileUsername, "profileEmail" => $this->profileEmal,
-		"profileHash" => $this->profileHash, "profileSalt" =>$this->profileSalt, "profileLocation" => $this->profileLocation];
+			"profileHash" => $this->profileHash, "profileSalt" => $this->profileSalt, "profileLocation" => $this->profileLocation];
 		$statement->ececute($parameters);
 
 		//update the null profileId with what mySQL just gave us
 		$this->profileId = intval($pdo->lastInsertId());
+}
 }
