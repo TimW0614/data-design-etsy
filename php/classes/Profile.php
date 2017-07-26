@@ -262,4 +262,31 @@ class profile {
 		// convert and store the location
 		$this->profileLocation = $newProfileLocation;
 	}
+
+	/**
+	 * inserts this profile into mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOEception when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function insert(\PDO $pdo): void {
+		// enforce the profileId is null (i.e., don't insert a profile that already exists}
+		if($this->profileId !== null) {
+			throw(new \PDOException("not a new profile"));
+
+		}
+	}
+	// create query template
+		$query = "INSERT INTO profie(profileId, profileUsername, profileEmail, profileHash, profileSalt, profileLocation)
+	 			VALUES(:profileId, :profileUsername, :profileEmail, :profileHash, :profileSalt, :profileLocation)";
+		$statement = $pdo->prepare($query)'
+
+		// bind the member variables to the place holders in the template
+		$parameters = ["profileId" => $this->profileId, "profileUsername" => $this->profileUsername, "profileEmail" => $this->profileEmal,
+		"profileHash" => $this->profileHash, "profileSalt" =>$this->profileSalt, "profileLocation" => $this->profileLocation];
+		$statement->ececute($parameters);
+
+		//update the null profileId with what mySQL just gave us
+		$this->profileId = intval($pdo->lastInsertId());
 }
