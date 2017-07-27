@@ -59,7 +59,7 @@ class profile {
 			$this->setProfileId($newProfileId);
 			$this->setprofieEmail($newProfileEmail);
 			$this->setProfileEmail($newProfileHash);
-			$this-setprofileSalt($newProfileSalt);
+			$this - setprofileSalt($newProfileSalt);
 			$this->setprofileLocation($newProfileLocation);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			$exceptionType = get_class($exception);
@@ -289,5 +289,26 @@ class profile {
 
 		//update the null profileId with what mySQL just gave us
 		$this->profileId = intval($pdo->lastInsertId());
-}
+	}
+
+	/**
+	 * deletes this profile from mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function delete(\PDO $pdo): void {
+		// enforce the profileId is not null (i.e., don't delete a profile that hasn't been inserted)
+		if($this->profileId === null) {
+			throw(new \PDOException("unable to delete a tweet that does not exist"));
+		}
+		// create query template
+		$query = "DELETE FROM profile WHERE profileId = :profileId";
+		$statement = $pdo->prepare($query);
+
+		// bind the member variables to the place holder in the template
+		$parameters = ["profileId" => $this->profileId];
+		$statement->execute($parameters);
+	}
 }
