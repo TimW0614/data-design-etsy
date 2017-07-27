@@ -183,10 +183,6 @@ class profile {
 		$newProfileHash = trim($newProfileHash);
 		$newProfileHash = strtolower($newProfileHash);
 		if(empty($newProfileHash) === true) {
-			throw(new \InvalidArgumentException("profile password hash is empty or insecure "));
-		}
-		// ensure that the hash is a string representation of a hexadecimal
-		if(!ctype_xdigit($newProfileHash)) {
 			throw(new \InvalidArgumentException("profile password hash is empty or insecure"));
 		}
 		// ensure that the hash is exactly 128 characters
@@ -309,6 +305,28 @@ class profile {
 
 		// bind the member variables to the place holder in the template
 		$parameters = ["profileId" => $this->profileId];
+		$statement->execute($parameters);
+	}
+	/**
+	 * updates this profile in mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function update(\PDO $pdo) : void {
+		// enforce the profileId is not null (i.e., don't update a profile that hasn't beem inserted)
+		if($this->profileId === null) {
+						throw(new \PDOException("unable to update a profile that does not exist"));
+		}
+		// create query template
+		$query = "update profile SET profileId = :profileId, profileUsername = :profileUsername, profileEmail = :profileEmail,
+					profileHash = :profilehash, profileSalt = :profileSalt, profileLocation = :profileLocation";
+		$statement = $pdo->prepare($query);
+
+		// bind the member variables to the place holders in the template
+		$parameters = ["profileId" => $this->profileId, "profileUsername" => $this->profileUsername, "profileEmail" => $this->profileEmail,
+							"profilehash" => $this->profilehash, "profileSalt" => $this->profileSalt, "profileLocation" => $this->profileLocation];
 		$statement->execute($parameters);
 	}
 }
