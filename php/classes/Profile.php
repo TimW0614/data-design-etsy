@@ -23,7 +23,7 @@ class profile {
 	 * email of user
 	 * @var string $profileEmail
 	 **/
-	private $profieEmail;
+	private $profileEmail;
 	/**
 	 * password hash
 	 * @var string $profileHash
@@ -44,6 +44,7 @@ class profile {
 	 * constructor for this profile
 	 *
 	 * @param int|null $newProfileId of this profile or null if a new profile
+	 * @param string $newProfileUsername
 	 * @param string $newProfileEmail string containing user's email
 	 * @param string $newProfileHash string containing password hash
 	 * @param string $newProfileSalt string containing password salt
@@ -57,9 +58,9 @@ class profile {
 	public function __construct(?int $newProfileId, string $newProfileUsername, string $newProfileEmail, string $newProfileHash, string $newProfileSalt, string $newProfileLocation) {
 		try {
 			$this->setProfileId($newProfileId);
-			$this->setprofieEmail($newProfileEmail);
-			$this->setProfileEmail($newProfileHash);
-			$this - setprofileSalt($newProfileSalt);
+			$this->setProfileUsername($newProfileUsername);
+			$this->setProfileEmail($newProfileEmail);
+			$this-> setprofileSalt($newProfileSalt);
 			$this->setprofileLocation($newProfileLocation);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			$exceptionType = get_class($exception);
@@ -263,7 +264,7 @@ class profile {
 	 * inserts this profile into mySQL
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @throws \PDOEception when mySQL related errors occur
+	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 **/
 	public function insert(\PDO $pdo): void {
@@ -274,14 +275,14 @@ class profile {
 		}
 
 		// create query template
-		$query = "INSERT INTO profie(profileId, profileUsername, profileEmail, profileHash, profileSalt, profileLocation)
+		$query = "INSERT INTO profile(profileId, profileUsername, profileEmail, profileHash, profileSalt, profileLocation)
 	 			VALUES(:profileId, :profileUsername, :profileEmail, :profileHash, :profileSalt, :profileLocation)";
 		$statement = $pdo->prepare($query);
 
 		// bind the member variables to the place holders in the template
-		$parameters = ["profileId" => $this->profileId, "profileUsername" => $this->profileUsername, "profileEmail" => $this->profileEmal,
+		$parameters = ["profileId" => $this->profileId, "profileUsername" => $this->profileUsername, "profileEmail" => $this->profileEmail,
 			"profileHash" => $this->profileHash, "profileSalt" => $this->profileSalt, "profileLocation" => $this->profileLocation];
-		$statement->ececute($parameters);
+		$statement->execute($parameters);
 
 		//update the null profileId with what mySQL just gave us
 		$this->profileId = intval($pdo->lastInsertId());
@@ -326,7 +327,47 @@ class profile {
 
 		// bind the member variables to the place holders in the template
 		$parameters = ["profileId" => $this->profileId, "profileUsername" => $this->profileUsername, "profileEmail" => $this->profileEmail,
-							"profilehash" => $this->profilehash, "profileSalt" => $this->profileSalt, "profileLocation" => $this->profileLocation];
+							"profilehash" => $this->profileHash, "profileSalt" => $this->profileSalt, "profileLocation" => $this->profileLocation];
 		$statement->execute($parameters);
+	}
+
+	/**
+	 *
+	 * gets the profile by profileId
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param int $profileId profile id to search for
+	 * @return \null profile found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not correct data type
+	 **/
+	public static function getProfileByProfileId(\PDO $pdo, int $profileId) : ?Profile {
+		//sanitize the profileId before searching
+		if($profileId <= 0) {
+			throw(new \PDOException("profile id is not positive"));
+		}
+		//create query template
+		$query = "select profileId, profileUsername, profileEmail, profileHash, profileSalt, profileLocation";
+		$statement = $pdo->prepare(query);
+
+		//bind the profile id to the place holder in the template
+		$parameters = ["profileId" => $profileId];
+		$statement->execute($parameters);
+
+		//grab the profile from mySQL
+		try {
+			$profile = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$profile = new Profile($row["profileId"], $row["profileUsername"], $row["profileEmail"], $row["profileHash"],
+					$row["profileSalt"], $row["profileLocation"]);
+
+			}
+		} catch(\Exception $exception) {
+			// if the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, exception));
+		}
+		return($profile);
 	}
 }
