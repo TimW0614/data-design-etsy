@@ -279,7 +279,17 @@ class Item {
 		if($this->itemId === null) {
 			throw(new \PDOException("unable to update a item that does not exist"));
 		}
-	}
+
+		// create query template
+		$query = "UPDATE item SET itemProfileID = itemProfileId,  itemName = :itemName, itemDescription 
+		= :itemDescription, itemPrice = :itemPrice WHERE itemId = :itemId";
+		$statement = $pdo->prepare($query);
+
+		// bind the member variables to the place holders in the template
+		$parameters = ["itemProfileId" => $this->itemProfileId, "itemName" => $this->itemName,
+			"itemDescription" => $this->itemDescription, "itemPrice" => $this->itemPrice];
+		$statement->execute($parameters);
+		}
 }
 
 ?>
